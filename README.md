@@ -1,8 +1,11 @@
 PyroCMS-Module-Download
 =======================
 
+Version: 1.0
+Author: Toni Haryanto
+
 Download Module for PyroCMS 2.x
-by Toni Haryanto
+
 
 ## Featured
 
