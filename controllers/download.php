@@ -49,7 +49,7 @@ class Download extends Public_Controller
 		
 		//echo time().' - '.$available->datetime; echo ' = '.(time() - $available->datetime);
 		//if difference between download time 
-		if(! $available || ( $available && ((time() - $available->datetime) > 2 * 60) )){ // is 2 ours
+		if(! $available || ( $available && ( (time() - $available->datetime) > (2*60*60) ))){ // is 2 hours
 			$this->download_history_m->create($file->id, $agent, $this->input->ip_address());
 			// increment the counter
 			$this->download_m->update($file->id, array('count' => $file->count + 1));
