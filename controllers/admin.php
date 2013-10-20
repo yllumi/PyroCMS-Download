@@ -10,6 +10,7 @@
 class Admin extends Admin_Controller
 {
 	protected $section = 'items';
+	public $item_validation_rules;
 
 	public function __construct()
 	{
@@ -85,14 +86,14 @@ class Admin extends Admin_Controller
 			if($this->download_m->create($this->input->post()))
 			{
 				// All good...
-				$this->session->set_flashdata('success', lang('download.success'));
+				$this->session->set_flashdata('success', lang('download:success'));
 				redirect('admin/download');
 			}
 			// Something went wrong. Show them an error
 			else
 			{
-				$this->session->set_flashdata('error', lang('download.error'));
-				redirect('admin/download/create');
+				$this->session->set_flashdata('error', lang('download:error'));
+				redirect('admin/download/add');
 			}
 		}
 		
@@ -102,7 +103,7 @@ class Admin extends Admin_Controller
 		}
 
 		// Build the view using download/views/admin/form.php
-		$this->template->title($this->module_details['name'], lang('download.new_item'))
+		$this->template->title($this->module_details['name'], lang('download:add'))
 						->build('admin/form', $data);
 	}
 	
@@ -124,19 +125,19 @@ class Admin extends Admin_Controller
 			if($this->download_m->update($id, $this->input->post()))
 			{
 				// All good...
-				$this->session->set_flashdata('success', lang('download.success'));
+				$this->session->set_flashdata('success', lang('download:success'));
 				redirect('admin/download');
 			}
 			// Something went wrong. Show them an error
 			else
 			{
-				$this->session->set_flashdata('error', lang('download.error'));
+				$this->session->set_flashdata('error', lang('download:error'));
 				redirect('admin/download/create');
 			}
 		}
 
 		// Build the view using download/views/admin/form.php
-		$this->template->title($this->module_details['name'], lang('download.edit'))
+		$this->template->title($this->module_details['name'], lang('download:edit'))
 						->build('admin/form', $data);
 	}
 	
