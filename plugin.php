@@ -28,7 +28,8 @@ class Plugin_Download extends Plugin
 						->get('download')
 						->row_array();
 		if($data)
-			return '<a href="'.site_url('download/file/'.$slug.'/'.$data['encrypted']).'" '. (($class)? 'class="'.$class.'"' : '') . (($id)? 'id="'.$id.'"' : '') . (($target)? 'target="'.$target.'"' : '') .'>'.$data['title'].'</a>';
+			if($data['memberonly'] == 0 || is_logged_in())
+				return '<a href="'.site_url('download/file/'.$slug.'/'.$data['encrypted']).'" '. (($class)? 'class="'.$class.'"' : '') . (($id)? 'id="'.$id.'"' : '') . (($target)? 'target="'.$target.'"' : '') .'>'.$data['title'].'</a>';
 		
 		return false;
 	}
@@ -49,9 +50,10 @@ class Plugin_Download extends Plugin
 						->get('download')
 						->row_array();
 		if($data){
-			$data['href'] = site_url('download/file/'.$slug.'/'.$data['encrypted']);
-			
-			return array($data);
+			if($data['memberonly'] == 0 || is_logged_in()){	
+				$data['href'] = site_url('download/file/'.$slug.'/'.$data['encrypted']);
+				return array($data);
+			}		
 		}
 		
 		return false;

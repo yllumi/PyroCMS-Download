@@ -67,9 +67,9 @@ class Admin extends Admin_Controller
 		$items = $this->download_m->get_all();
 
 		// Build the view with download/views/admin/items.php
-		$this->data->items =& $items;
+		$data['items'] = $items;
 		$this->template->title($this->module_details['name'])
-						->build('admin/items', $this->data);
+						->build('admin/items', $data);
 	}
 
 	public function add()
@@ -98,17 +98,17 @@ class Admin extends Admin_Controller
 		
 		foreach ($this->item_validation_rules AS $rule)
 		{
-			$this->data->{$rule['field']} = $this->input->post($rule['field']);
+			$data->{$rule['field']} = $this->input->post($rule['field']);
 		}
 
 		// Build the view using download/views/admin/form.php
 		$this->template->title($this->module_details['name'], lang('download.new_item'))
-						->build('admin/form', $this->data);
+						->build('admin/form', $data);
 	}
 	
 	public function edit($id = 0)
 	{
-		$this->data = $this->download_m->get($id);
+		$data = $this->download_m->get($id);
 
 		// Set the validation rules from the array above
 		$this->form_validation->set_rules($this->item_validation_rules);
@@ -137,7 +137,7 @@ class Admin extends Admin_Controller
 
 		// Build the view using download/views/admin/form.php
 		$this->template->title($this->module_details['name'], lang('download.edit'))
-						->build('admin/form', $this->data);
+						->build('admin/form', $data);
 	}
 	
 	public function delete($id = 0)
